@@ -26,41 +26,38 @@ export default function ChatScreen({ navigation }) {
 
 
 
-  //for userchats:
-  
+//   //for userchats:
+//   //
+//   async function getUserChats() {
+//     // Fetch user chats from Supabase
+//     const { data: userChats, error } = await supabase
+//       .from('conversations')
+//       .select('id')
+//       .select('messages');
 
+//     if (error) {
+//       console.error("Error fetching user chats:", error);
+//       return;
+//     }
 
+//     // Add user chats to array
+//     let userChatsTemp = [];
+//     if (userChats) {
+//       userChats.forEach((userChat) => {
+//         userChatsTemp.push({ isChatbot: false, chatId: userChat.id });
+//       });
+//     }
 
-
-
-
-  // async function getUserChats() {
-  //   // Fetch user chats from Supabase
-  //   const { data: userChats, error } = await supabase
-  //     .from('conversations')
-  //     .select('id')
-  //     .select('messages');
-
-  //   if (error) {
-  //     console.error("Error fetching user chats:", error);
-  //     return;
-  //   }
-
-  //   // Add user chats to array
-  //   let userChatsTemp = [];
-  //   if (userChats) {
-  //     userChats.forEach((userChat) => {
-  //       userChatsTemp.push({ isChatbot: false, chatId: userChat.id });
-  //     });
-  //   }
-
-  //   setChats((otherChats) => [...otherChats, ...userChatsTemp]);
-  // }
+//     setChats((otherChats) => [...otherChats, ...userChatsTemp]);
+//   }
+// //
 
   useEffect(() => {
     if (chats.length < 1) {
       getChatbots();
+//
       // getUserChats();
+//
     }
   }, [chats.length]);
 
@@ -79,7 +76,7 @@ export default function ChatScreen({ navigation }) {
     >
       <Header title="Chat" />
       <View>
-        {chats?.map((chat) => {
+        {/* {chats?.map((chat) => {
           return (
             <TouchableOpacity
               style={styles.userButton}
@@ -106,17 +103,18 @@ export default function ChatScreen({ navigation }) {
               />
             </TouchableOpacity>
           );
-        })}
+        })} */}
 
         {/* my edits for userchats to display: */}
+        {/* change this: */}
         {chats?.map((chat) => {
           return (
             <TouchableOpacity
               style={styles.userButton}
               onPress={() => {
-                navigation.navigate("Conversation", {
-                  isChatbot: chat.isChatbot,
-                  chatId: chat.chatId,
+                navigation.navigate("GroupChatScreen", {
+                  // isChatbot: chat.isChatbot,
+                  // chatId: chat.chatId,
                 });
               }}
               key={chat.chatId}

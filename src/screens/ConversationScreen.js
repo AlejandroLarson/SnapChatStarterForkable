@@ -12,7 +12,12 @@ const CHATBOT_USER_OBJ = {
   avatar: "",
 };
 export const CHATBOTS = {
-  BasicChatbot: {
+  // BasicChatbot: {
+  //   name: "React Native Chatbot",
+  //   imageUrl: "https://loremflickr.com/140/140",
+  //   component: BasicChatbot,
+  // },
+  GlobalGroupChat: {
     name: "React Native Chatbot",
     imageUrl: "https://loremflickr.com/140/140",
     component: BasicChatbot,
