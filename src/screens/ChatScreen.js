@@ -23,6 +23,17 @@ export default function ChatScreen({ navigation }) {
     setChats((otherChats) => [...otherChats, ...chatbotsTemp]);
   }
 
+
+
+
+  //for userchats:
+  
+
+
+
+
+
+
   // async function getUserChats() {
   //   // Fetch user chats from Supabase
   //   const { data: userChats, error } = await supabase
@@ -68,6 +79,36 @@ export default function ChatScreen({ navigation }) {
     >
       <Header title="Chat" />
       <View>
+        {chats?.map((chat) => {
+          return (
+            <TouchableOpacity
+              style={styles.userButton}
+              onPress={() => {
+                navigation.navigate("Conversation", {
+                  isChatbot: chat.isChatbot,
+                  chatId: chat.chatId,
+                });
+              }}
+              key={chat.chatId}
+            >
+              <Ionicons
+                style={styles.userIcon}
+                name="person-outline"
+                size={36}
+                color="lightgrey"
+              />
+              <Text style={styles.userName}> {chat.chatId} </Text>
+              <Ionicons
+                style={styles.userCamera}
+                name="camera-outline"
+                size={24}
+                color="lightgrey"
+              />
+            </TouchableOpacity>
+          );
+        })}
+
+        {/* my edits for userchats to display: */}
         {chats?.map((chat) => {
           return (
             <TouchableOpacity

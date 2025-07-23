@@ -69,6 +69,13 @@ export default function App() {
           component={EventScreen}
           options={{ headerShown: true }}
         />
+
+        {/* adding another screen for group chat button in chat screen */}
+        <Stack.Screen
+          name="GroupChatScreen"
+          component={ConversationScreen}
+          options={{ headerShown: true }}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );
