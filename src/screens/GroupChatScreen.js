@@ -58,8 +58,6 @@ export default function GroupChatScreen({ route, navigation }) {
 
           );
         }}
-
-        )}
         onContentSizeChange={scrollToBottom}
 
       />
