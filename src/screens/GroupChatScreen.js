@@ -11,10 +11,14 @@ import { useChatScroll } from "../hooks/use-chat-scroll";
 export default function GroupChatScreen({ route, navigation }) {
     const { user } = useAuthentication();
     const username = user?.email || 'Guest';
+    //const isSender = item.user_email === username;
 
-    const { messages, sendMessage, isConnected } = useRealtimeChat({
+  
+
+    const { messages, sendMessage, isConnected} = useRealtimeChat({
         roomName: 'global_room',
-        username,
+        username
+         
     });
 
     const [input, setInput] = useState('');
@@ -38,14 +42,28 @@ export default function GroupChatScreen({ route, navigation }) {
         ref = {containerRef}
         data={messages}
         keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <Text style={styles.message}>
-            <Text style={styles.username}>{item.user?.name || item.user_email || 'Unknown'}:{" "}: </Text>
-            {item.content}
+        renderItem={({ item }) => {
+          
+          const messageUser = item.user?.name.split("@")[0] || item.user_email.split("@")[0]|| 'Unknown';
+          const isSender = messageUser === username.split("@")[0];
+          
+          return(
+          <Text style={[styles.message, isSender?styles.senderText : styles.otherText]}>
+            <Text style={styles.username}>{messageUser} </Text>
+             {'\n'}
+            {/* { item.user?.name.split("@")[0] || item.user_email.split("@")[0] || 'Unknown'}:{" "}:  */}
+            <Text style={styles.message}>{item.content}</Text>
+            
           </Text>
+
+          );
+        }}
+
         )}
         onContentSizeChange={scrollToBottom}
+
       />
+      
       <View style={styles.inputContainer}>
         <TextInput
           value={input}
@@ -60,9 +78,9 @@ export default function GroupChatScreen({ route, navigation }) {
 }
 
 const styles = StyleSheet.create({
-  container: { flex: 1, padding: 16 },
+  container: { flex: 1, padding: 20 },
   header: { fontSize: 20, fontWeight: 'bold', marginBottom: 8 },
-  message: { paddingVertical: 4 },
+  message: { paddingVertical: 4, fontSize: 16},
   username: { fontWeight: 'bold' },
   inputContainer: {
     flexDirection: 'row',
@@ -77,6 +95,13 @@ const styles = StyleSheet.create({
     padding: 8,
     marginRight: 8,
   },
+  senderText: {
+    color: 'darkred'
+  },
+  otherText: {
+    color: 'black'
+  },
+
 });
 
 //   useEffect(() => {
