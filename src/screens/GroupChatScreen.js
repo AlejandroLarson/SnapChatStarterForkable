@@ -5,6 +5,7 @@ import { supabase } from "../utils/hooks/supabase";
 import { GiftedChat } from "react-native-gifted-chat";
 import { useAuthentication } from "../utils/hooks/useAuthentication";
 import { useRealtimeChat } from "../hooks/use-realtime-chat";
+import { useChatScroll } from "../hooks/use-chat-scroll";
 
 
 export default function GroupChatScreen({ route, navigation }) {
@@ -21,6 +22,7 @@ export default function GroupChatScreen({ route, navigation }) {
     });
 
     const [input, setInput] = useState('');
+    const { containerRef, scrollToBottom } = useChatScroll();
 
     const handleSend = () => {
     if (input.trim() !== '') {
@@ -29,10 +31,15 @@ export default function GroupChatScreen({ route, navigation }) {
     }
   };
 
+  useEffect(() => {
+    scrollToBottom();
+  }, [messages, scrollToBottom]);
+
   return (
     <View style={styles.container}>
       <Text style={styles.header}>Group Chat</Text>
       <FlatList
+        ref = {containerRef}
         data={messages}
         keyExtractor={(item) => item.id}
         renderItem={({ item }) => {
@@ -48,8 +55,13 @@ export default function GroupChatScreen({ route, navigation }) {
             <Text style={styles.message}>{item.content}</Text>
             
           </Text>
+
           );
         }}
+
+        )}
+        onContentSizeChange={scrollToBottom}
+
       />
       
       <View style={styles.inputContainer}>
