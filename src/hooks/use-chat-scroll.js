@@ -1,8 +1,7 @@
 import { useCallback, useRef } from 'react';
-import { ScrollView } from 'react-native';
 
 export function useChatScroll() {
-  const containerRef = useRef(null); // ref for ScrollView
+  const containerRef = useRef(null); // For FlatList or ScrollView
 
   const scrollToBottom = useCallback(() => {
     if (containerRef.current) {
